@@ -34,25 +34,6 @@ async function setupWebcam() {
         }
     });
 }
-async function app() {
-    console.log('Loading mobilenet..');
-
-    // Load the model.
-    net = await mobilenet.load();
-    console.log('Sucessfully loaded model');
-
-    await setupWebcam();
-
-    // Reads an image from the webcam and associates it with a specific class
-    // index.
-    const addExample = classId => {
-        // Get the intermediate activation of MobileNet 'conv_preds' and pass that
-        // to the KNN classifier.
-        const activation = net.infer(webcamElement, 'conv_preds');
-
-        // Pass the intermediate activation to the classifier.
-        classifier.addExample(activation, classId);
-    };
 
     // When clicking a button, add an example for that class.
     document.getElementById('class-a').addEventListener('click', () => addExample(0));
